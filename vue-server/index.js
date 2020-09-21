@@ -4,8 +4,23 @@ const io = require('socket.io')(http)
 
 const port = 5000
 
+function getRandomValueArray() {
+    return Array.from({ length: 10 }, () => { Math.floor(Math.randon() * 100 )})
+}
+
 io.on('connection', (socket) => {
     console.log('connected')
+
+    async function sendData() {
+        await new Promise((resolve) => setTimeout(resolve, 1000))
+        
+        const data = await getRandomValueArray()
+
+        console.log('Sending:' +  JSON.stringify(data, null, 2))
+        socket.broadcast.emit('newChartData', data)
+    }
+
+    sendData()
 })
 
 http.listen(port, () => {
