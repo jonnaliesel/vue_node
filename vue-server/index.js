@@ -12,12 +12,14 @@ io.on('connection', (socket) => {
     console.log('connected')
 
     async function sendData() {
-        await new Promise((resolve) => setTimeout(resolve, 1000))
+        while(true) {
+            await new Promise((resolve) => setTimeout(resolve, 1000))
         
-        const data = await getRandomValueArray()
+            const data = await getRandomValueArray()
 
-        console.log('Sending:' +  JSON.stringify(data, null, 2))
-        socket.broadcast.emit('newChartData', data)
+            console.log('Sending:' +  JSON.stringify(data, null, 2))
+            socket.broadcast.emit('newChartData', data)
+        }
     }
 
     sendData()
