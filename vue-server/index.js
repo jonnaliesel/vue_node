@@ -5,7 +5,7 @@ const io = require('socket.io')(http)
 const port = 5000
 
 function getRandomValueArray() {
-    return Array.from({ length: 10 }, () => { Math.floor(Math.randon() * 100 )})
+    return Array.from({ length: 10 }, () => Math.floor(Math.random() * 100 ))
 }
 
 io.on('connection', (socket) => {
